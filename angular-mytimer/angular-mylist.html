@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by anonymous (http://jsbin.com/yuvejuxeyo/6/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html ng-app="app" ng-controller="Controller">
+<head>
+  
+        
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/angular.ng-notify/0.6.0/ng-notify.min.js">
+  </script>
+  <link href="https://cdn.jsdelivr.net/angular.ng-notify/0.6.0/ng-notify.min.css" rel="stylesheet" type="text/css" />
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>The title is awesome</title>
+  
+</head>
+<body>
+  <div id="container">
+    
+    <h1>Awesome list <small>Austin Powers</small></h1>
+    
+  <h2>Knoedel</h2>
+    
+  <input type="text" ng-model="name" class="form-control">
+  
+  <p class="lead" style="margin: 10px;">Hello, {{name}} </p>
+    
+    
+      <input type="text" ng-model="searchterm" class="form-control">
+
+    <div ng-repeat="weekDay in weekDays" ng-init="weekdayIndex = $index">
+      
+      <h3 style="margin: 10px;">{{weekDay.name}}</h3>
+      
+      <div ng-if="weekDay.modules.length === 0">
+        <p class="lead" style="margin: 20px;">Free Willy</p>
+      </div>
+      
+      <div ng-repeat="module in weekDay.modules | orderBy:'from' | filter: searchterm" ng-click="weekDay.modules.splice($index, 1)">
+        <p class="lead" style="margin: 20px;">{{$index+1}}. {{module.name}}
+        <small>{{module.from | date: 'HH:mm'}}- {{module.to | date: 'HH:mm'}}</small></p>
+      </div>
+      
+    </div>
+    
+      <input type="text" ng-model="newModule.name" class="form-control">
+   
+    <select ng-model="weekDay" 
+            ng-options="weekDay for weekDay in weekdaysSelection">
+     
+    </select>
+    <input type="time" ng-model="newModule.from" class="form-control">
+    <input type="time" ng-model="newModule.to" class="form-control">
+    
+    <button type="button" ng-click="addModule(newModule, weekDay)" ng-disabled="!newModule.name || !weekDay" class="form-control">
+      Eintragen
+    </button>
+    {{newModule}}
+    
+  </div>
+
+  <script id="jsbin-javascript">
+var app = angular.module('app', ['ngNotify']);
+
+app.controller('Controller', ['$scope','ngNotify', function($scope, ngNotify){
+  
+  $scope.name = 'Superman';
+  ngNotify.set('test');
+  $scope.weekDays = [
+  {
+    name: 'Montag',
+    modules: [{
+      name: 'Immobilienbewertung',
+      from: new Date().setHours(8,0),
+      to: new Date().setHours(10,0)
+    },
+    {
+      name: 'Patentrecht',
+      from: new Date().setHours(8,0),
+      to: new Date().setHours(10,0)
+    },
+    {
+      name: 'Arbeitsrecht',
+      from: new Date().setHours(8,0),
+      to: new Date().setHours(10,0)
+    }
+    ]
+  },{
+    name: 'Dienstag',
+    modules: []
+  },{
+    name: 'Mittwoch',
+    modules: []
+  },{
+    name: 'Donnerstag',
+    modules: []
+  },{
+    name: 'Freitag',
+    modules: []
+  }
+  ];
+  
+  $scope.weekdaysSelection = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
+                     
+  $scope.addModule = function(newModule, weekDay){
+    for (var i=0; i < $scope.weekDays.length; i++) {
+      if($scope.weekDays[i].name === weekDay){
+        $scope.weekDays[i].modules.push(angular.copy(newModule));
+        break;
+      }
+    }
+  };
+  
+}]);
+</script>
+</body>
+</html>
