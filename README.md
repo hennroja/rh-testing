@@ -1,2 +1,2 @@
 # rh-testing
-Just stuff that I tested
+Just stuff that we tested
