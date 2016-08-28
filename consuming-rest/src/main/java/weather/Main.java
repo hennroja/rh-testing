@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         RestTemplate restTemplate = new RestTemplate();
         String query = "select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text=" +
-                "\"Berlin\")";
+                "\"Berlin, BE, DE\")";
         Weather weather = restTemplate.getForObject(YAHOOA_WEATHER_API + query + FORMAT_JSON, Weather.class);
         log.info(weather.getQuery().getResults().getChannel().getWind().toString());
     }

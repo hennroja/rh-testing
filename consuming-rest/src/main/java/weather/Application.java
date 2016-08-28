@@ -27,7 +27,7 @@ public class Application {
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
 			String query = "select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text=" +
-					"\"Berlin\")";
+					"\"Berlin, BE, DE\")";
 			Weather weather = restTemplate.getForObject(Main.YAHOOA_WEATHER_API + query + Main.FORMAT_JSON, Weather.class);
 			log.info(weather.getQuery().getResults().getChannel().getWind().toString());
 		};
