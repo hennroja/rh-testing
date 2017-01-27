@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS `tablename` (
+  `id` int(11) NOT NULL,
+  `text1` varchar(16) NOT NULL COMMENT 'text first row',
+  `text2` varchar(16) NOT NULL COMMENT 'text second row',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `tablename `
+  ADD PRIMARY KEY (`id`);
